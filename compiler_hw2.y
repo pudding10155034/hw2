@@ -33,15 +33,6 @@
         struct SymbTable *next;
     }SymbTable;
 
-    // typedef struct SymbTable{
-    //     int scope;
-    //     int data_num;
-    //     struct SymbTabData *SymbTabDhead;
-    //     struct SymbTable *PrevScopeT;
-    //     struct SymbTable *NextScopeT;
-    // }SymbTable;
-
-
     int Scope = 0;
     int Address = 0;
     int Index = 0;
@@ -129,12 +120,9 @@ FunctionDeclStmt
         ParameterList 
         ')'             { strcat(Func_Sig, ")"); }
         ReturnType { 
-            // printf("------=======================================--------------------\n");
-            // print_table();
-            
+                      
             strcpy(f_s, Func_Sig);
-            // print_table();
-            // printf("------=======================================--------------------\n");
+            
             if(strcmp($8, "void")==0){
                 strcat(f_s, voidchar);
             }
@@ -147,23 +135,10 @@ FunctionDeclStmt
             else if(strcmp($8, "bool")==0){
                 strcat(f_s, boolchar);
             }
-            
-            // printf("------------------------------------------------------\n");
-            // print_table();
+           
             printf("func_signature: %s\n", f_s);
             
-            // printf("%s\n",$1);
-            // printf("%d\n", yylineno)
-            // strcpy(DTYPE, "func"); 
-            
-            // print_table();
-            // printf("------------------------------------------------------\n");
             insert_symbol($1, "func", f_s);
-            // print_table();
-            // lookup_symbol($1);
-            // printf("func_signature: %s\n", f_s);
-            
-            // printf("func_signature: %s\n", f_s);
         } 
         FuncBlock   
 ;
@@ -183,8 +158,6 @@ ParameterList
             strcat(Func_Sig, "F");
         }
         insert_symbol($1, $2, "-"); 
-        // $$ = Func_Sig;
-        // printf("AAAAAAA :%s\n" , $$);
     }
         Parametertail
     |
@@ -203,7 +176,6 @@ Parametertail
         INSERT_PARAM = true; 
         insert_symbol($2, $3, "-"); 
         $2 = Func_Sig;
-        // printf("BBBBBB :%s\n" , $$);
       }
         Parametertail  
     | 
